@@ -6,7 +6,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "8080:80"  # Changez le port externe de 80 à 8080
     depends_on:
       - backend
 
