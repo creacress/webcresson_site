@@ -19,12 +19,12 @@ jobs:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Copy files to VPS
-      run: scp -r ./* user@your-vps-ip:/path/to/your/project
+      run: scp -r ./* root@194.164.72.129:/root/CRESSON
 
     - name: SSH and restart Docker
       run: |
-        ssh user@your-vps-ip << 'EOF'
-        cd /path/to/your/project
+        ssh root@194.164.72.129 << 'EOF'
+        cd /root/CRESSON
         docker-compose down
         docker-compose up -d
         EOF
