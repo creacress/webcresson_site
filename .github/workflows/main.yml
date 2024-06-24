@@ -18,6 +18,13 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Add VPS to known_hosts
+      run: |
+        mkdir -p ~/.ssh
+        echo "194.164.72.129 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRR5bsPk+wlOCbwaSTrmYikwuxHOP0ZLxgVYZUIz7VLcAwXzy+VbEiC2OSpiz7qz2HpWCAwiOfHMs5rh5r15Lsp0QUAKHOX28DSd8EB044aQbhgHlL6m/a+HeJQbqTLSEfStwqqjjOdrRVGzHUBG8eMh57kngBDTWPTF5MXqZIopaTP5cL8VtwBULRqOAKu5PSYwhnE1CbimDyasoaRrZI3sp/0sD6Z/2/4II/PzleK6sGN+fY2Kg7pgIxYaP9Gmhn/nfSBQu29EsJE605nIr5oyLOxdN6TI5Tp5pHNlUk37axUVWnPQuhqBG51uWH976z/ZoZGVOB/MUMcQzGiS+rxBlBn95EKdhbXSPvDeX3exT+O8orJqB66YyL5gi6BlEUtzvBjvpMISH/HbNni6EcupkhPGyzpcmTDjfRQWZ/eIiQ3OFmcDYyxLupLxRAUCVITUoiGsshupRVDps/9aUPEcM2tguBXRT5BZq3Sd7MGfisOObuL7lqW2aWLAsfutc=" >> ~/.ssh/known_hosts
+        echo "194.164.72.129 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHLUNnOiOrhWFLNvsctdrbBfYLW/EJ9E62qjZ7Urwq+J7KNb57q4J1AuksAnPzqwc+F4XaQyhGofbAwbB+WgFbo=" >> ~/.ssh/known_hosts
+        echo "194.164.72.129 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBA1Z6txW4yD6sYZ8HK3SyzUEmIn88vD5nOPwH6nGG/a" >> ~/.ssh/known_hosts
+
     - name: Copy files to VPS
       run: scp -r ./* root@194.164.72.129:/root/CRESSON
 
