@@ -25,6 +25,9 @@ jobs:
         echo "194.164.72.129 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHLUNnOiOrhWFLNvsctdrbBfYLW/EJ9E62qjZ7Urwq+J7KNb57q4J1AuksAnPzqwc+F4XaQyhGofbAwbB+WgFbo=" >> ~/.ssh/known_hosts
         echo "194.164.72.129 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBA1Z6txW4yD6sYZ8HK3SyzUEmIn88vD5nOPwH6nGG/a" >> ~/.ssh/known_hosts
 
+    - name: Create target directory on VPS
+      run: ssh root@194.164.72.129 'mkdir -p /root/CRESSON'
+
     - name: Copy files to VPS
       run: scp -r ./* root@194.164.72.129:/root/CRESSON
 
