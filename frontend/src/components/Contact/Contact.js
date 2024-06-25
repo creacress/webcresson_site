@@ -2,12 +2,27 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import './Contact.scss';
 
+const services = [
+  { value: 'rpa', label: 'RPA' },
+  { value: 'dataEngineering', label: 'Data Engineering' },
+  { value: 'consulting', label: 'Consulting' },
+  { value: 'customSoftware', label: 'Custom Software' },
+  { value: 'siteCreation', label: 'Création de Site' },
+  { value: 'seoOptimization', label: 'Optimisation SEO' },
+  { value: 'siteRenovation', label: 'Reprise de Site Web' },
+  { value: 'hosting', label: 'Hébergement' }
+];
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    service: '',
     message: ''
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,19 +31,30 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
-      const response = await fetch('http://localhost:5001/contact', {
+      const response = await fetch('https://webcresson.com/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       });
+
       const result = await response.json();
       alert(result.message);
+      setIsSubmitted(true);
+      setFormData({
+        name: '',
+        email: '',
+        service: '',
+        message: ''
+      });
     } catch (error) {
       console.error('Error:', error);
       alert('An error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -48,21 +74,36 @@ const Contact = () => {
         <meta name="twitter:image" content="https://www.canva.com/design/DAFN5s5-hjk/view" />
       </Helmet>
       <h2>Contact Us</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input type="text" id="name" name="name" required onChange={handleChange} />
+      {isSubmitted ? (
+        <div className="confirmation-message">
+          Thank you for your message. We will get back to you soon.
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" required onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="message">Message</label>
-          <textarea id="message" name="message" rows="4" required onChange={handleChange}></textarea>
-        </div>
-        <button type="submit">Send Message</button>
-      </form>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" name="name" value={formData.name} required onChange={handleChange} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" name="email" value={formData.email} required onChange={handleChange} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="service">Service</label>
+            <select id="service" name="service" value={formData.service} required onChange={handleChange}>
+              <option value="" disabled>Select a service</option>
+              {services.map(service => (
+                <option key={service.value} value={service.value}>{service.label}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="message">Message</label>
+            <textarea id="message" name="message" rows="4" value={formData.message} required onChange={handleChange}></textarea>
+          </div>
+          <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Message'}</button>
+        </form>
+      )}
     </section>
   );
 };
