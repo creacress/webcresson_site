@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import ReactGA from '@react-ga4/core';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
@@ -17,10 +18,23 @@ import SEOOptimization from './pages/Optimisations SEO/SEOOptimization';
 import SiteRenovation from './pages/Reprise de Site Web/SiteRenovation';
 import Hosting from './pages/Hébergement/Hosting';
 
+// Initialisation de Google Analytics 4
+ReactGA.initialize('G-Q7CQNCMT3V');
+
+const usePageTracking = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: location.pathname + location.search });
+  }, [location]);
+};
+
 function App() {
+  usePageTracking();
+
   return (
     <Router>
-       <Helmet>
+      <Helmet>
         <title>WebCressonTech</title>
         <meta name="description" content="WebCressonTech - Consultation et services en automatisation, ingénierie des données, et développement web." />
         <meta name="keywords" content="RPA, ingénierie des données, développement web, consultation, automatisation, SEO, hébergement" />
