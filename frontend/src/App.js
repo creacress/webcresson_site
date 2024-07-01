@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import ReactGA from '@react-ga4/core';
+import ReactGA from 'react-ga4'; // Assure-toi que c'est bien react-ga4
 
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
