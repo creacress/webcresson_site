@@ -19,10 +19,14 @@ jobs:
         node-version: '18'  # Utilise la version 18 de Node.js
 
     - name: Install dependencies
-      run: npm install
+      run: |
+        cd frontend
+        npm install
 
     - name: Build project
-      run: npm run build
+      run: |
+        cd frontend
+        npm run build
 
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
