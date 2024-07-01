@@ -43,13 +43,20 @@ jobs:
     - name: Create target directory on VPS
       run: ssh root@194.164.72.129 'mkdir -p /root/CRESSON'
 
-    - name: Copy files to VPS
-      run: scp -r ./* root@194.164.72.129:/root/CRESSON
+    - name: Archive build directory
+      run: |
+        cd frontend
+        tar -czf build.tar.gz build
 
-    - name: SSH and restart Docker
+    - name: Copy build archive to VPS
+      run: |
+        scp frontend/build.tar.gz root@194.164.72.129:/root/CRESSON
+
+    - name: Extract build archive on VPS and restart Docker
       run: |
         ssh root@194.164.72.129 << 'EOF'
         cd /root/CRESSON
+        tar -xzf build.tar.gz
         docker-compose down
         docker-compose up -d
         EOF
