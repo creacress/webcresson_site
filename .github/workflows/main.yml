@@ -26,6 +26,11 @@ jobs:
         rm -rf package-lock.json
         npm install
 
+    - name: Debug - List node_modules
+      run: |
+        cd frontend
+        ls -la node_modules
+
     - name: Build project
       run: |
         cd frontend
