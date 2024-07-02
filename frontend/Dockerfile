@@ -1,5 +1,5 @@
 # Utiliser une image Node officielle pour le build
-FROM node:14 AS build
+FROM node:18 AS build
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Installer les dépendances
-RUN npm install
+RUN npm ci
 
 # Copier le reste des fichiers du projet
 COPY . .
