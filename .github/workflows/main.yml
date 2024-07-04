@@ -45,7 +45,7 @@ jobs:
     - name: Archive project directory
       run: |
         tar -czf project.tar.gz *
-      working-directory: .  # Assurez-vous que le répertoire de travail est correctement défini
+      working-directory: .
 
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
