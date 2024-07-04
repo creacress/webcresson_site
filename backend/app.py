@@ -26,7 +26,9 @@ class ContactMessage(db.Model):
     service = db.Column(db.String(120), nullable=False)
     message = db.Column(db.Text, nullable=False)
 
-db.create_all()
+# Create the database and the database table
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def home():
