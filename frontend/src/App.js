@@ -13,9 +13,9 @@ import RPA from './pages/RPA/RPA';
 import DataEngineering from './pages/DataEngineering/DataEngineering';
 import Consulting from './pages/Consulting/Consulting';
 import CustomSoftware from './pages/CustomSoftware/CustomSoftware';
-import SiteCreation from './pages/CreationDeSite/SiteCreation'; // Chemin sans caractères spéciaux
-import SEOOptimization from './pages/SEOOptimisation/SEOOptimization'; // Chemin sans caractères spéciaux
-import SiteRenovation from './pages/SiteRenovation/SiteRenovation'; // Chemin sans caractères spéciaux
+import SiteCreation from './pages/CreationDeSite/SiteCreation';
+import SEOOptimization from './pages/SEOOptimisation/SEOOptimization';
+import SiteRenovation from './pages/SiteRenovation/SiteRenovation';
 import Hosting from './pages/Hosting/Hosting';
 
 ReactGA.initialize('G-Q7CQNCMT3V');
@@ -32,7 +32,7 @@ function App() {
   usePageTracking();
 
   return (
-    <Router>
+    <div>
       <Helmet>
         <title>WebCressonTech</title>
         <meta name="description" content="WebCressonTech - Consultation et services en automatisation, ingénierie des données, et développement web." />
@@ -64,8 +64,16 @@ function App() {
         </Routes>
       </main>
       <Footer />
+    </div>
+  );
+}
+
+function Root() {
+  return (
+    <Router>
+      <App />
     </Router>
   );
 }
 
-export default App;
+export default Root;

@@ -1,10 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Services from '../Services/Services';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import './Home.scss';
+import PageWrapper from '../PageWrapper/PageWrapper';
 
 const Home = () => (
   <section className="home">
+    <PageWrapper />
     <Helmet>
       <title>WebCressonTech - Accueil</title>
       <meta name="description" content="Je propose des services de consultation de premier ordre pour automatiser et rationaliser vos processus métier grâce à des solutions RPA et d'ingénierie des données." />
