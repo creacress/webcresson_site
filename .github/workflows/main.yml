@@ -18,17 +18,29 @@ jobs:
       with:
         node-version: '18'
 
-    - name: Clean npm cache and install dependencies
+    - name: Clean npm cache and install dependencies for frontend
       run: |
         cd frontend
         npm cache clean --force
         rm -rf node_modules
         npm install
 
-    - name: Build project
+    - name: Build frontend
       run: |
         cd frontend
         npm run build
+
+    - name: Set up Python for backend
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies for backend
+      run: |
+        cd backend
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
 
     - name: Archive project directory
       run: |
@@ -54,9 +66,10 @@ jobs:
       run: |
         ssh root@194.164.72.129 << 'EOF'
         cd /root/CRESSON
+        rm -rf /root/CRESSON/*
         tar -xzf project.tar.gz
         rm project.tar.gz
-        cd /root/CRESSON
         docker-compose down
         docker-compose up -d
+        docker-compose logs -f
         EOF

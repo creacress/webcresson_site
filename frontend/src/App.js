@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import ReactGA from 'react-ga4'; // Assure-toi que c'est bien react-ga4
+import ReactGA from 'react-ga4';
 
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -13,12 +13,11 @@ import RPA from './pages/RPA/RPA';
 import DataEngineering from './pages/DataEngineering/DataEngineering';
 import Consulting from './pages/Consulting/Consulting';
 import CustomSoftware from './pages/CustomSoftware/CustomSoftware';
-import SiteCreation from './pages/Création de Site/SiteCreation';
-import SEOOptimization from './pages/Optimisations SEO/SEOOptimization';
-import SiteRenovation from './pages/Reprise de Site Web/SiteRenovation';
-import Hosting from './pages/Hébergement/Hosting';
+import SiteCreation from './pages/CreationDeSite/SiteCreation'; // Chemin sans caractères spéciaux
+import SEOOptimization from './pages/SEOOptimisation/SEOOptimization'; // Chemin sans caractères spéciaux
+import SiteRenovation from './pages/SiteRenovation/SiteRenovation'; // Chemin sans caractères spéciaux
+import Hosting from './pages/Hosting/Hosting';
 
-// Initialisation de Google Analytics 4
 ReactGA.initialize('G-Q7CQNCMT3V');
 
 const usePageTracking = () => {
