@@ -23,7 +23,6 @@ jobs:
         cd frontend
         npm cache clean --force
         rm -rf node_modules
-        rm -rf package-lock.json
         npm ci
 
     - name: Debug - List node_modules
