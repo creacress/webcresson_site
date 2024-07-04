@@ -45,6 +45,7 @@ jobs:
     - name: Archive project directory
       run: |
         tar -czf project.tar.gz *
+      working-directory: .  # Assurez-vous que le répertoire de travail est correctement défini
 
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
@@ -68,7 +69,6 @@ jobs:
       run: |
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
         cd /root/CRESSON
-        rm -rf /root/CRESSON/*
         tar -xzf project.tar.gz
         rm project.tar.gz
         docker-compose down
