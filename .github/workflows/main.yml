@@ -23,27 +23,16 @@ jobs:
         cd frontend
         npm cache clean --force
         rm -rf node_modules
-        npm install
-
-    - name: Debug - List node_modules
-      run: |
-        cd frontend
-        ls -la node_modules
-
-    - name: Debug - Check react-scripts
-      run: |
-        cd frontend
-        ls -la node_modules/.bin
+        npm ci
 
     - name: Build project
       run: |
         cd frontend
         npm run build
 
-    - name: Archive build directory
+    - name: Archive project directory
       run: |
-        cd frontend
-        tar -czf build.tar.gz build
+        tar -czf project.tar.gz *
 
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
@@ -57,18 +46,16 @@ jobs:
         echo "194.164.72.129 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHLUNnOiOrhWFLNvsctdrbBfYLW/EJ9E62qjZ7Urwq+J7KNb57q4J1AuksAnPzqwc+F4XaQyhGofbAwbB+WgFbo=" >> ~/.ssh/known_hosts
         echo "194.164.72.129 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBA1Z6txW4yD6sYZ8HK3SyzUEmIn88vD5nOPwH6nGG/a" >> ~/.ssh/known_hosts
 
-    - name: Copy build archive to VPS
+    - name: Copy project archive to VPS
       run: |
-        scp frontend/build.tar.gz root@194.164.72.129:/root/CRESSON
+        scp project.tar.gz root@194.164.72.129:/root/CRESSON
 
-    - name: Extract build archive on VPS and restart Docker
+    - name: Extract project archive on VPS and run Docker
       run: |
         ssh root@194.164.72.129 << 'EOF'
-        if [ ! -d "/root/CRESSON" ]; then
-          mkdir -p /root/CRESSON
-        fi
-        tar -xzf /root/CRESSON/build.tar.gz -C /root/CRESSON --strip-components=1
-        rm /root/CRESSON/build.tar.gz
+        cd /root/CRESSON
+        tar -xzf project.tar.gz
+        rm project.tar.gz
         cd /root/CRESSON
         docker-compose down
         docker-compose up -d
