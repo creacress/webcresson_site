@@ -58,7 +58,7 @@ jobs:
 
     - name: Copy project archive to VPS
       run: |
-        scp project.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/root/CRESSON/
+        scp project.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/root/CRESSON
 
     - name: Verify files on VPS
       run: |
@@ -68,8 +68,10 @@ jobs:
       run: |
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
         cd /root/CRESSON
+        rm -rf /root/CRESSON/*
         tar -xzf project.tar.gz
         rm project.tar.gz
         docker-compose down
         docker-compose up -d
+        docker-compose logs -f
         EOF
