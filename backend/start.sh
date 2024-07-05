@@ -1,4 +1,11 @@
 #!/bin/bash
+
+# Vérifier si le dossier migrations existe, sinon l'initialiser
+if [ ! -d "migrations" ]; then
+  flask db init
+  flask db migrate -m "Initial migration"
+fi
+
 # Appliquer les migrations
 flask db upgrade
 
