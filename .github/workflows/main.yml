@@ -65,12 +65,23 @@ jobs:
       run: |
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "ls -la /root/CRESSON"
 
-    - name: Extract project archive on VPS and run Docker
+    - name: Extract project archive on VPS and set up environment
       run: |
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
         cd /root/CRESSON
         tar -xzf project.tar.gz
         rm project.tar.gz
+        cd backend
+        python3 -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+        python manage.py create_db
+        EOF
+
+    - name: Start Docker services
+      run: |
+        ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+        cd /root/CRESSON
         docker-compose down
         docker-compose up -d
         docker-compose logs -f

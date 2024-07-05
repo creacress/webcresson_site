@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from dotenv import load_dotenv
 import smtplib
 from email.mime.text import MIMEText
@@ -21,6 +22,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
+    migrate = Migrate(app, db)
 
     class ContactMessage(db.Model):
         id = db.Column(db.Integer, primary_key=True)
@@ -28,11 +30,6 @@ def create_app():
         email = db.Column(db.String(120), nullable=False)
         service = db.Column(db.String(120), nullable=False)
         message = db.Column(db.Text, nullable=False)
-
-    @app.before_first_request
-    def create_tables():
-        with app.app_context():
-            db.create_all()
 
     @app.route('/')
     def home():
