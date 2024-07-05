@@ -42,14 +42,17 @@ jobs:
         cd /root/CRESSON
         tar -xzf project.tar.gz
         rm project.tar.gz
+        export DATABASE_URI=${{ secrets.DATABASE_URI }}
+        export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+        export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+        export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
         docker-compose down
         docker-compose up -d
-        docker exec -it $(docker ps -q -f name=backend) flask db upgrade
-        docker exec -it $(docker ps -q -f name=backend) python manage.py create_db
+        docker exec $(docker ps -q -f name=backend) flask db upgrade
+        docker exec $(docker ps -q -f name=backend) python manage.py create_db
         EOF
       env:
         DATABASE_URI: ${{ secrets.DATABASE_URI }}
-        EMAIL_USER: ${{ secrets.EMAIL_USER }}
-        EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-        SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
