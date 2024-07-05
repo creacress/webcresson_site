@@ -7,18 +7,19 @@ WORKDIR /app
 # Copier requirements.txt et installer les dépendances
 COPY requirements.txt .
 RUN pip install -r requirements.txt
+RUN  pip install --upgrade pip
 
 # Copier le reste des fichiers de l'application
 COPY . .
-
-# Exposer le port 5000
-EXPOSE 5000
 
 # Copier le script de démarrage
 COPY start.sh .
 
 # Donner les permissions d'exécution au script
 RUN chmod +x start.sh
+
+# Exposer le port 5000
+EXPOSE 5000
 
 # Commande pour démarrer l'application
 CMD ["./start.sh"]
