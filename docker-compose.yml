@@ -24,7 +24,6 @@ services:
       - SMTP_SERVER=${SMTP_SERVER}
       - SMTP_PORT=${SMTP_PORT}
       - RECEIVER_EMAIL=${RECEIVER_EMAIL}
-    command: bash -c "flask db upgrade && gunicorn --bind 0.0.0.0:5000 app:create_app()"
     depends_on:
       - db
 

@@ -7,7 +7,6 @@ WORKDIR /app
 # Copier requirements.txt et installer les dépendances
 COPY requirements.txt .
 RUN pip install -r requirements.txt
-RUN pip install --upgrade pip
 
 # Copier le reste des fichiers de l'application
 COPY . .
@@ -15,5 +14,11 @@ COPY . .
 # Exposer le port 5000
 EXPOSE 5000
 
-# Commande pour démarrer l'application avec les migrations
-CMD ["bash", "-c", "flask db upgrade && gunicorn --bind 0.0.0.0:5000 app:create_app()"]
+# Copier le script de démarrage
+COPY start.sh .
+
+# Donner les permissions d'exécution au script
+RUN chmod +x start.sh
+
+# Commande pour démarrer l'application
+CMD ["./start.sh"]
