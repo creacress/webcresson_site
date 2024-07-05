@@ -47,6 +47,7 @@ jobs:
         export SMTP_SERVER=${{ secrets.SMTP_SERVER }}
         export SMTP_PORT=${{ secrets.SMTP_PORT }}
         export RECEIVER_EMAIL=${{ secrets.RECEIVER_EMAIL }}
+        export DATABASE_URI=${{ secrets.DATABASE_URI }}
         docker-compose down
         docker-compose up -d
         sleep 10  # Attendre quelques secondes pour que les conteneurs démarrent
@@ -62,3 +63,4 @@ jobs:
         SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
         SMTP_PORT: ${{ secrets.SMTP_PORT }}
         RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+        DATABASE_URI: ${{ secrets.DATABASE_URI }}
