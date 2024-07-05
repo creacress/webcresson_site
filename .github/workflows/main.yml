@@ -38,7 +38,7 @@ jobs:
     - name: Install dependencies for backend
       run: |
         cd backend
-        python -m venv venv
+        python3 -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
 
@@ -76,6 +76,7 @@ jobs:
         source venv/bin/activate
         pip install -r requirements.txt
         source venv/bin/activate  # Assurez-vous que l'environnement virtuel est actif
+        which python  # Ajout pour vérifier que Python est accessible
         python manage.py create_db
         EOF
 
