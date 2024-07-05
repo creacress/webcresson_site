@@ -42,17 +42,25 @@ jobs:
         cd /root/CRESSON
         tar -xzf project.tar.gz
         rm project.tar.gz
-        export DATABASE_URI=${{ secrets.DATABASE_URI }}
         export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
         export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
         export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+        export EMAIL_USER=${{ secrets.EMAIL_USER }}
+        export EMAIL_PASS=${{ secrets.EMAIL_PASS }}
+        export SMTP_SERVER=${{ secrets.SMTP_SERVER }}
+        export SMTP_PORT=${{ secrets.SMTP_PORT }}
+        export RECEIVER_EMAIL=${{ secrets.RECEIVER_EMAIL }}
         docker-compose down
         docker-compose up -d
         sleep 10  # Attendre quelques secondes pour que les conteneurs démarrent
         docker-compose logs backend
         EOF
       env:
-        DATABASE_URI: ${{ secrets.DATABASE_URI }}
         POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        EMAIL_USER: ${{ secrets.EMAIL_USER }}
+        EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+        SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
