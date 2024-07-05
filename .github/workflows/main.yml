@@ -13,33 +13,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
-
-    - name: Clean npm cache and install dependencies for frontend
+    - name: Build Docker images
       run: |
-        cd frontend
-        npm cache clean --force
-        rm -rf node_modules
-        npm install
-
-    - name: Build frontend
-      run: |
-        cd frontend
-        npm run build
-
-    - name: Set up Python for backend
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
-
-    - name: Install dependencies for backend
-      run: |
-        cd backend
-        python3 -m venv venv
-        ./venv/bin/pip install -r requirements.txt
+        docker-compose build
 
     - name: Archive project directory
       run: |
@@ -60,27 +36,12 @@ jobs:
       run: |
         scp project.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/root/CRESSON
 
-    - name: Verify files on VPS
-      run: |
-        ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "ls -la /root/CRESSON"
-
     - name: Extract project archive on VPS and set up environment
       run: |
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
         cd /root/CRESSON
         tar -xzf project.tar.gz
         rm project.tar.gz
-        cd backend
-        python3 -m venv venv
-        ./venv/bin/pip install -r requirements.txt
-        ./venv/bin/python manage.py create_db
-        EOF
-
-    - name: Start Docker services
-      run: |
-        ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-        cd /root/CRESSON
         docker-compose down
         docker-compose up -d
-        docker-compose logs -f
         EOF
