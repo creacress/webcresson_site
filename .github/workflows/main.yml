@@ -48,8 +48,8 @@ jobs:
         export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
         docker-compose down
         docker-compose up -d
-        docker exec $(docker ps -q -f name=backend) flask db upgrade
-        docker exec $(docker ps -q -f name=backend) python manage.py create_db
+        sleep 10  # Attendre quelques secondes pour que les conteneurs démarrent
+        docker-compose logs backend
         EOF
       env:
         DATABASE_URI: ${{ secrets.DATABASE_URI }}
