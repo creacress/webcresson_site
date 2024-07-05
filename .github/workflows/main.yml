@@ -75,9 +75,7 @@ jobs:
         python3 -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
-        source venv/bin/activate  # Assurez-vous que l'environnement virtuel est actif
-        which python  # Ajout pour vérifier que Python est accessible
-        python manage.py create_db
+        ./venv/bin/python manage.py create_db
         EOF
 
     - name: Start Docker services
