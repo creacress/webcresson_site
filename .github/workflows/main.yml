@@ -27,6 +27,16 @@ jobs:
 
     - name: Build Docker images
       run: docker-compose build
+      env:
+        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        EMAIL_USER: ${{ secrets.EMAIL_USER }}
+        EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+        SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+        DATABASE_URI: ${{ secrets.DATABASE_URI }}
 
     - name: Archive project directory
       run: tar -czf project.tar.gz *
