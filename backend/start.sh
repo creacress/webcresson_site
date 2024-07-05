@@ -13,6 +13,10 @@ else
   echo "Dossier migrations trouvé, pas besoin d'initialisation."
 fi
 
+# Afficher les fichiers et répertoires actuels pour débogage après la tentative de création des migrations
+echo "Contenu du répertoire /app après tentative de création des migrations:"
+ls -la /app
+
 # Appliquer les migrations
 flask db upgrade
 
