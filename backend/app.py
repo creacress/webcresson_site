@@ -29,8 +29,10 @@ def create_app():
         service = db.Column(db.String(120), nullable=False)
         message = db.Column(db.Text, nullable=False)
 
-    with app.app_context():
-        db.create_all()
+    @app.before_first_request
+    def create_tables():
+        with app.app_context():
+            db.create_all()
 
     @app.route('/')
     def home():
