@@ -5,6 +5,15 @@ import { Helmet } from 'react-helmet';
 const SEOOptimization = () => (
   <section className="service-detail">
     <Helmet>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
     <title>Optimisations SEO - WebCressonTech</title>
     <meta name="description" content="J'optimise votre site pour les moteurs de recherche afin d'améliorer votre visibilité en ligne, en utilisant des techniques avancées et les meilleurs outils disponibles." />
     <meta name="keywords" content="optimisation SEO, référencement, visibilité en ligne, SEO technique, WebCressonTech" />

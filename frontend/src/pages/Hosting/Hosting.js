@@ -5,6 +5,15 @@ import { Helmet } from 'react-helmet';
 const Hosting = () => (
   <section className="service-detail">
     <Helmet>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
     <title>Hébergement - WebCressonTech</title>
     <meta name="description" content="Je propose des solutions d'hébergement fiables et sécurisées pour vos sites web, incluant hébergement partagé, serveurs dédiés, VPS, et hébergement cloud." />
     <meta name="keywords" content="hébergement web, hébergement sécurisé, serveurs dédiés, VPS, hébergement cloud, WebCressonTech" />

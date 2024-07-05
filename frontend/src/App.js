@@ -34,6 +34,15 @@ function App() {
   return (
     <div>
       <Helmet>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
         <title>WebCressonTech</title>
         <meta name="description" content="WebCressonTech - Consultation et services en automatisation, ingénierie des données, et développement web." />
         <meta name="keywords" content="RPA, ingénierie des données, développement web, consultation, automatisation, SEO, hébergement" />

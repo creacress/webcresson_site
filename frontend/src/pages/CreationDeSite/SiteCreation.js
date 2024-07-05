@@ -8,6 +8,15 @@ const SiteCreation = () => (
   <section className="service-detail">
     <Helmet>
       <title>Création de Site - WebCressonTech</title>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
       <meta name="description" content="Je conçois et développe des sites web modernes et performants, optimisés pour le SEO et avec un design personnalisé." />
       <meta name="keywords" content="création de site web, développement web, SEO, design web, WebCressonTech, GreenCode" />
       <meta property="og:title" content="Création de Site - WebCressonTech" />

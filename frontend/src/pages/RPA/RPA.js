@@ -13,6 +13,15 @@ const RPA = () => {
   return (
     <section className="service-details">
       <Helmet>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
         <title>Développement RPA - WebCressonTech</title>
         <meta name="description" content="Je développe des solutions RPA pour automatiser vos processus métiers et améliorer votre efficacité opérationnelle, en utilisant les meilleures pratiques et technologies." />
         <meta name="keywords" content="RPA, automatisation des processus, efficacité opérationnelle, développement RPA, WebCressonTech" />

@@ -10,6 +10,15 @@ const Home = () => (
   <section className="home">
     <PageWrapper />
     <Helmet>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
       <title>WebCressonTech - Accueil</title>
       <meta name="description" content="Je propose des services de consultation de premier ordre pour automatiser et rationaliser vos processus métier grâce à des solutions RPA et d'ingénierie des données." />
       <meta name="keywords" content="RPA, ingénierie des données, automatisation, consultation, WebCressonTech" />

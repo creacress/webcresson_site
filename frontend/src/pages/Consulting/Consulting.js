@@ -12,6 +12,15 @@ const Consulting = () => {
   return (
     <section className="service-details">
       <Helmet>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
         <title>Consultation en Automatisation - WebCressonTech</title>
         <meta name="description" content="Nos services de consultation en automatisation vous aident à identifier les opportunités d'amélioration et à mettre en œuvre des solutions efficaces pour optimiser vos processus métiers." />
         <meta name="keywords" content="consultation en automatisation, optimisation des processus, WebCressonTech, RPA, amélioration des processus" />

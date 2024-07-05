@@ -6,6 +6,15 @@ import PortraitCRESSON from '../../assets/cresson.webp';
 const About = () => (
   <section className="about">
     <Helmet>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
       <title>À Propos de Moi - WebCressonTech</title>
       <meta name="description" content="Je suis un ingénieur de données expérimenté, spécialisé dans l'automatisation des processus robotiques (RPA) et l'optimisation des opérations des entreprises." />
       <meta name="keywords" content="ingénieur de données, RPA, automatisation, WebCressonTech, traitement des données, React, Python" />

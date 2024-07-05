@@ -71,6 +71,15 @@ const Services = () => {
   return (
     <section className="services">
       <Helmet>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
     <title>Mes Services - WebCressonTech</title>
     <meta name="description" content="Découvrez les services que j'offre, allant du développement front-end à l'ingénierie de données et l'automatisation des processus." />
     <meta name="keywords" content="services, développement, RPA, ingénierie des données, automatisation, front-end, back-end, WebCressonTech" />

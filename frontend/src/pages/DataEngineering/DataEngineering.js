@@ -12,6 +12,15 @@ const DataEngineering = () => {
   return (
     <section className="service-details">
       <Helmet>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
         <title>Ingénierie de Données - WebCressonTech</title>
         <meta name="description" content="Je conçois et mets en œuvre des pipelines de données robustes pour gérer et exploiter vos données de manière optimale." />
         <meta name="keywords" content="ingénierie de données, collecte de données, transformation de données, stockage de données, analyse de données, WebCressonTech" />

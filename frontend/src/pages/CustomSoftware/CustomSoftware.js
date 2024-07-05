@@ -12,6 +12,15 @@ const CustomSoftware = () => {
   return (
     <section className="service-details">
       <Helmet>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
         <title>Solutions Logiciels Sur Mesure - WebCressonTech</title>
         <meta name="description" content="Je développe des solutions logicielles sur mesure pour répondre à vos besoins spécifiques et améliorer votre productivité." />
         <meta name="keywords" content="solutions logicielles sur mesure, développement de logiciels, WebCressonTech, productivité, logiciels personnalisés" />

@@ -61,6 +61,15 @@ const Contact = () => {
   return (
     <section className="contact">
       <Helmet>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
         <title>Contactez Nous - WebCressonTech</title>
         <meta name="description" content="Contactez WebCressonTech pour des services de consultation en automatisation et ingénierie des données. Nous sommes ici pour vous aider à transformer votre entreprise." />
         <meta name="keywords" content="contact, consultation, automatisation, ingénierie des données, WebCressonTech" />

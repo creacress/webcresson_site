@@ -5,6 +5,15 @@ import { Helmet } from 'react-helmet';
 const SiteRenovation = () => (
   <section className="service-detail">
     <Helmet>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NWB1S3BY2Q');
+          `}
+        </script>
     <title>Reprise de Site Web - WebCressonTech</title>
     <meta name="description" content="Je modernise et optimise les sites web existants pour améliorer les performances et l'expérience utilisateur, en utilisant les dernières technologies et meilleures pratiques." />
     <meta name="keywords" content="reprise de site web, modernisation de site web, optimisation de site web, SEO, WebCressonTech, design web" />
