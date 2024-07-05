@@ -15,5 +15,5 @@ COPY . .
 # Exposer le port 5000
 EXPOSE 5000
 
-# Commande pour démarrer l'application
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:create_app()"]
+# Commande pour démarrer l'application avec les migrations
+CMD ["bash", "-c", "flask db upgrade && gunicorn --bind 0.0.0.0:5000 app:create_app()"]
