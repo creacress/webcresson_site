@@ -18,7 +18,7 @@ services:
       - "5000"
     environment:
       - FLASK_ENV=production
-      - DATABASE_URI=postgresql+psycopg2://username:password@db:5432/dbname
+      - DATABASE_URI=${DATABASE_URI}
     command: gunicorn --bind 0.0.0.0:5000 app:app
     depends_on:
       - db
@@ -26,9 +26,9 @@ services:
   db:
     image: postgres:latest
     environment:
-      POSTGRES_DB: dbname
-      POSTGRES_USER: username
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5433:5455"  # Utiliser un autre port pour éviter les conflits
     volumes:

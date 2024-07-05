@@ -44,4 +44,12 @@ jobs:
         rm project.tar.gz
         docker-compose down
         docker-compose up -d
+        docker exec -it $(docker ps -q -f name=backend) flask db upgrade
+        docker exec -it $(docker ps -q -f name=backend) python manage.py create_db
         EOF
+      env:
+        DATABASE_URI: ${{ secrets.DATABASE_URI }}
+        EMAIL_USER: ${{ secrets.EMAIL_USER }}
+        EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+        SMTP_PORT: ${{ secrets.SMTP_PORT }}
