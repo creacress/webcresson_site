@@ -39,9 +39,7 @@ jobs:
       run: |
         cd backend
         python3 -m venv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
-        pip install --upgrade pip
+        ./venv/bin/pip3.10 install -r requirements.txt
 
     - name: Archive project directory
       run: |
@@ -74,8 +72,7 @@ jobs:
         rm project.tar.gz
         cd backend
         python3 -m venv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
+        ./venv/bin/pip3.10 install -r requirements.txt
         ./venv/bin/python3.10 manage.py create_db
         EOF
 
