@@ -34,7 +34,7 @@ const Contact = () => {
     setIsSubmitting(true);
     try {
       console.log('Sending data:', formData);
-      const response = await fetch('http://194.164.72.129:5000/contact', { // Assurez-vous que cette URL est correcte
+      const response = await fetch('https://webcresson.com/contact', { // Assurez-vous que cette URL est correcte
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
