@@ -36,7 +36,6 @@ jobs:
         SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
         SMTP_PORT: ${{ secrets.SMTP_PORT }}
         RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
-        DATABASE_URI: ${{ secrets.DATABASE_URI }}
 
     - name: Archive project directory
       run: tar -czf project.tar.gz *
