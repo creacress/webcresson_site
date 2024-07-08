@@ -33,13 +33,18 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://webcresson.com/contact', {
+      console.log('Sending data:', formData);
+      const response = await fetch('http://194.164.72.129:5000/contact', { // Assurez-vous que cette URL est correcte
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const result = await response.json();
       alert(result.message);
@@ -61,7 +66,7 @@ const Contact = () => {
   return (
     <section className="contact">
       <Helmet>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
         <script>
           {`
             window.dataLayer = window.dataLayer || [];

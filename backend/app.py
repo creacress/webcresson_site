@@ -18,7 +18,10 @@ def create_app():
     CORS(app)
 
     # Configure SQLAlchemy with the database URI
-    app.config['DATABASE_URI'] = os.getenv('DATABASE_URI')
+    database_uri = os.getenv('DATABASE_URI')
+    if not database_uri:
+        raise ValueError("No DATABASE_URI provided in .env file")
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
@@ -37,24 +40,40 @@ def create_app():
 
     @app.route('/contact', methods=['POST'])
     def contact():
-        data = request.json
-        name = data.get('name')
-        email = data.get('email')
-        service = data.get('service')
-        message = data.get('message')
+        try:
+            data = request.get_json()
+            if not data:
+                raise ValueError("No data provided")
+            
+            print("Received data:", data)
+            
+            name = data.get('name')
+            email = data.get('email')
+            service = data.get('service')
+            message = data.get('message')
 
-        new_message = ContactMessage(name=name, email=email, service=service, message=message)
-        db.session.add(new_message)
-        db.session.commit()
+            if not all([name, email, service, message]):
+                raise ValueError("Missing fields in data")
 
-        # Send email notification
-        send_email_notification(name, email, service, message)
+            new_message = ContactMessage(name=name, email=email, service=service, message=message)
+            db.session.add(new_message)
+            db.session.commit()
 
-        response = {
-            'status': 'success',
-            'message': 'Thank you for your message. We will get back to you soon.'
-        }
-        return jsonify(response), 200
+            # Send email notification
+            send_email_notification(name, email, service, message)
+
+            response = {
+                'status': 'success',
+                'message': 'Thank you for your message. We will get back to you soon.'
+            }
+            return jsonify(response), 200
+        except ValueError as e:
+            print("ValueError:", e)
+            return jsonify({'status': 'error', 'message': str(e)}), 400
+        except Exception as e:
+            print("Exception:", e)
+            print("Error details:", e.__class__.__name__, str(e))
+            return jsonify({'status': 'error', 'message': 'Internal Server Error'}), 500
 
     def send_email_notification(name, email, service, message):
         sender_email = os.getenv('EMAIL_USER')
