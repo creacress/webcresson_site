@@ -27,19 +27,9 @@ jobs:
 
     - name: Build Docker images
       run: docker-compose build
-      env:
-        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-        EMAIL_USER: ${{ secrets.EMAIL_USER }}
-        EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-        SMTP_PORT: ${{ secrets.SMTP_PORT }}
-        RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
 
     - name: Archive project directory
       run: tar -czf project.tar.gz *
-      working-directory: .
 
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
@@ -75,13 +65,3 @@ jobs:
         docker-compose exec backend flask db upgrade  # Appliquer les migrations
         docker-compose logs backend
         EOF
-      env:
-        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-        EMAIL_USER: ${{ secrets.EMAIL_USER }}
-        EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-        SMTP_PORT: ${{ secrets.SMTP_PORT }}
-        RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
-        DATABASE_URI: ${{ secrets.DATABASE_URI }}
