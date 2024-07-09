@@ -36,10 +36,13 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Remove old key from known_hosts
+      run: |
+        ssh-keygen -R ${{ secrets.VPS_HOST }}
+
     - name: Add VPS to known_hosts
       run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.VPS_HOST }} ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRR5bsPk+wlOCbwaSTrmYikwuxHOP0ZLxgVYZUIz7VLcAwXzy+VbEiC2OSpiz7qz2HpWCAwiOfHMs5rh5r15Lsp0QUAKHOX28DSd8EB044aQbhgHlL6m/a+HeJQbqTLSEfStwqqjjOdrRVGzHUBG8eMh57kngBDTWPTF5MXqZIopaTP5cL8VtwBULRqOAKu5PSYwhnE1CbimDyasoaRrZI3sp/0sD6Z/2/4II/PzleK6sGN+fY2Kg7pgIxYaP9Gmhn/nfSBQu29EsJE605nIr5oyLOxdN6TI5Tp5pHNlUk37axUVWnPQuhqBG51uWH976z/ZoZGVOB/MUMcQzGiS+rxBlBn95EKdhbXSPvDeX3exT+O8orJqB66YyL5gi6BlEUtzvBjvpMISH/HbNni6EcupkhPGyzpcmTDjfRQWZ/eIiQ3OFmcDYyxLupLxRAUCVITUoiGsshupRVDps/9aUPEcM2tguBXRT5BZq3Sd7MGfisOObuL7lqW2aWLAsfutc=" >> ~/.ssh/known_hosts
+        ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
     - name: Copy project archive to VPS
       run: scp project.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/root/CRESSON
