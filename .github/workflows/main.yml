@@ -50,6 +50,7 @@ jobs:
     - name: Extract project archive on VPS and set up environment
       run: |
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+        mkdir -p /root/CRESSON
         cd /root/CRESSON
         tar -xzf project.tar.gz
         rm project.tar.gz
