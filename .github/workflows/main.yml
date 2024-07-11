@@ -70,3 +70,5 @@ jobs:
         docker-compose exec backend flask db upgrade  # Appliquer les migrations
         docker-compose logs backend
         EOF
+
+   
