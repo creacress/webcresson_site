@@ -21,6 +21,9 @@ def create_app():
     database_uri = os.getenv('DATABASE_URI')
     if not database_uri:
         raise ValueError("No DATABASE_URI provided in .env file")
+    
+    print(f"Using DATABASE_URI: {database_uri}")  # Ajouté pour le débogage
+
     app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

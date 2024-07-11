@@ -23,7 +23,7 @@ jobs:
         echo "SMTP_SERVER=${{ secrets.SMTP_SERVER }}" >> .env
         echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> .env
         echo "RECEIVER_EMAIL=${{ secrets.RECEIVER_EMAIL }}" >> .env
-        echo "DATABASE_URI=postgresql+psycopg2://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}" >> .env
+        echo "DATABASE_URI=postgresql+psycopg2://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@db:5432/${{ secrets.POSTGRES_DB }}" >> .env
 
     - name: Build Docker images
       run: docker-compose build
@@ -50,6 +50,7 @@ jobs:
     - name: Extract project archive on VPS and set up environment
       run: |
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+        set -e  # Arrêter le script si une commande échoue
         rm -rf /root/CRESSON
         mkdir -p /root/CRESSON
         tar -xzf /root/project.tar.gz -C /root/CRESSON
@@ -63,12 +64,10 @@ jobs:
         echo "SMTP_SERVER=${{ secrets.SMTP_SERVER }}" >> .env
         echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> .env
         echo "RECEIVER_EMAIL=${{ secrets.RECEIVER_EMAIL }}" >> .env
-        echo "DATABASE_URI=postgresql+psycopg2://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}" >> .env
+        echo "DATABASE_URI=postgresql+psycopg2://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@db:5432/${{ secrets.POSTGRES_DB }}" >> .env
         docker-compose down
         docker-compose up -d
         sleep 10  # Attendre quelques secondes pour que les conteneurs démarrent
         docker-compose exec backend flask db upgrade  # Appliquer les migrations
         docker-compose logs backend
         EOF
-
-   
