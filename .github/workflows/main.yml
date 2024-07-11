@@ -52,6 +52,9 @@ jobs:
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
         mkdir -p /root/CRESSON
         cd /root/CRESSON
+        if [ ! -d /root/CRESSON ]; then
+          mkdir -p /root/CRESSON
+        fi
         tar -xzf project.tar.gz
         rm project.tar.gz
         echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" > .env
