@@ -45,18 +45,16 @@ jobs:
         ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
     - name: Copy project archive to VPS
-      run: scp project.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/root/CRESSON
+      run: scp project.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/root/project.tar.gz
 
     - name: Extract project archive on VPS and set up environment
       run: |
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+        rm -rf /root/CRESSON
         mkdir -p /root/CRESSON
+        tar -xzf /root/project.tar.gz -C /root/CRESSON
+        rm /root/project.tar.gz
         cd /root/CRESSON
-        if [ ! -d /root/CRESSON ]; then
-          mkdir -p /root/CRESSON
-        fi
-        tar -xzf project.tar.gz
-        rm project.tar.gz
         echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" > .env
         echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
         echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
