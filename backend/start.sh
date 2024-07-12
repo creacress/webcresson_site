@@ -4,7 +4,7 @@
 echo "Contenu du répertoire /app :"
 ls -la /app
 
-# Supprimer le dossier migrations
+# Supprimer le dossier migrations s'il existe
 if [ -d "migrations" ]; then
   rm -rf migrations
   echo "Dossier migrations supprimé."
