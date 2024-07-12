@@ -6,11 +6,11 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "8080:80"  # Utilisez le port 8080 pour le frontend
-      - "8443:443"  # Assurez-vous que le port 443 est également mappé
+      - "8080:80"
+      - "8443:443"
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
-      - ./frontend/default.conf:/etc/nginx/conf.d/default.conf  # Monter le fichier directement depuis le répertoire frontend
+      - ./frontend/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - backend
 
