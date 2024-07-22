@@ -1,32 +1,24 @@
-# Utiliser une image Node officielle pour le build
-FROM node:18 AS build
+# Étape de construction
+FROM node:18 as build
 
-# Définir le répertoire de travail
 WORKDIR /app
 
-# Copier les fichiers de configuration du projet
 COPY package*.json ./
-
-# Installer les dépendances
 RUN npm install
 
-# Copier le reste des fichiers du projet
 COPY . .
-
-# Construire l'application React
 RUN npm run build
 
-# Utiliser une image Nginx officielle pour servir l'application
+# Étape finale
 FROM nginx:alpine
-
-# Copier les fichiers construits dans le répertoire de Nginx
-COPY --from=build /app/build /usr/share/nginx/html
 
 # Copier la configuration de site personnalisée
 COPY default.conf /etc/nginx/conf.d/default.conf
 
-# Exposer le port 80 pour le serveur Nginx
-EXPOSE 80
+# Copier les fichiers construits à partir de l'étape de construction
+COPY --from=build /app/build /usr/share/nginx/html
 
-# Commande pour lancer Nginx
+EXPOSE 80
+EXPOSE 443
+
 CMD ["nginx", "-g", "daemon off;"]
