@@ -1,14 +1,13 @@
-import os
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from dotenv import load_dotenv
+from flask_cors import CORS
+import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
 db = SQLAlchemy()
@@ -17,18 +16,15 @@ def create_app():
     app = Flask(__name__)
     CORS(app)
 
-    # Configure SQLAlchemy with the database URI
     database_uri = os.getenv('DATABASE_URI')
     if not database_uri:
         raise ValueError("No DATABASE_URI provided in .env file")
     
-    print(f"Using DATABASE_URI: {database_uri}")  # Ajouté pour le débogage
-
     app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
-    migrate = Migrate(app, db)  # Initialiser Flask-Migrate
+    migrate = Migrate(app, db)
 
     class ContactMessage(db.Model):
         id = db.Column(db.Integer, primary_key=True)
@@ -41,14 +37,12 @@ def create_app():
     def home():
         return jsonify({"message": "Welcome to WebCressonTech API!"}), 200
 
-    @app.route('/contact', methods=['POST'])
+    @app.route('/api/contact', methods=['POST'])  # Modifiez cette route pour correspondre à /api/contact
     def contact():
         try:
             data = request.get_json()
             if not data:
                 raise ValueError("No data provided")
-            
-            print("Received data:", data)
             
             name = data.get('name')
             email = data.get('email')
@@ -62,7 +56,6 @@ def create_app():
             db.session.add(new_message)
             db.session.commit()
 
-            # Send email notification
             send_email_notification(name, email, service, message)
 
             response = {
@@ -71,11 +64,8 @@ def create_app():
             }
             return jsonify(response), 200
         except ValueError as e:
-            print("ValueError:", e)
             return jsonify({'status': 'error', 'message': str(e)}), 400
         except Exception as e:
-            print("Exception:", e)
-            print("Error details:", e.__class__.__name__, str(e))
             return jsonify({'status': 'error', 'message': 'Internal Server Error'}), 500
 
     def send_email_notification(name, email, service, message):
@@ -99,7 +89,6 @@ def create_app():
             text = msg.as_string()
             server.sendmail(sender_email, receiver_email, text)
             server.quit()
-            print("Email sent successfully")
         except Exception as e:
             print(f"Failed to send email: {e}")
 

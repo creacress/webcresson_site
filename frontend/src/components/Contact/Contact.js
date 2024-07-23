@@ -33,35 +33,36 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      console.log('Sending data:', formData);
-      const response = await fetch('https://webcresson.com/contact', { // Assurez-vous que cette URL est correcte
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
+        console.log('Sending data:', formData);
+        const response = await fetch('https://webcresson.com/api/contact', { // Modifiez cette URL pour pointer vers l'API
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-      const result = await response.json();
-      alert(result.message);
-      setIsSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        service: '',
-        message: ''
-      });
+        const result = await response.json();
+        alert(result.message);
+        setIsSubmitted(true);
+        setFormData({
+            name: '',
+            email: '',
+            service: '',
+            message: ''
+        });
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred. Please try again later.');
+        console.error('Error:', error);
+        alert('An error occurred. Please try again later.');
     } finally {
-      setIsSubmitting(false);
+        setIsSubmitting(false);
     }
-  };
+};
+
 
   return (
     <section className="contact">
