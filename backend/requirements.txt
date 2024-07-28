@@ -6,3 +6,10 @@ Flask-Script
 gunicorn
 python-dotenv
 psycopg2-binary
+
+requests
+beautifulsoup4
+selenium
+ChromeDriverManager
+mlflow
+setuptools

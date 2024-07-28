@@ -6,19 +6,20 @@ import { Helmet } from 'react-helmet';
 import './Home.scss';
 import PageWrapper from '../PageWrapper/PageWrapper';
 
+
 const Home = () => (
   <section className="home">
     <PageWrapper />
     <Helmet>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
-        <script>
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-NWB1S3BY2Q');
-          `}
-        </script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWB1S3BY2Q"></script>
+      <script>
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-NWB1S3BY2Q');
+        `}
+      </script>
       <title>WebCressonTech - Accueil</title>
       <meta name="description" content="Je propose des services de consultation de premier ordre pour automatiser et rationaliser vos processus métier grâce à des solutions RPA et d'ingénierie des données." />
       <meta name="keywords" content="RPA, ingénierie des données, automatisation, consultation, WebCressonTech" />
@@ -39,6 +40,11 @@ const Home = () => (
     <div className="cta">
       <h3>Prêt à Transformer Votre Entreprise?</h3>
       <p>Contactez-moi dès aujourd'hui pour commencer!</p>
+      <p>"Les secrets les mieux gardés sont ceux qui se cachent à la vue de tous."</p>
+      <p>Ne laissez pas l'attente d'un élément vous freiner, pas besoin d'un input quand on a un clavier</p>
+      <p>-.. --. ... .</p>
+      
+
       <Link to="/contact" className="cta-button">Contactez Moi</Link>
     </div>
   </section>

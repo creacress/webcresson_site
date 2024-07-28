@@ -1,0 +1,212 @@
+$background-color: #1b004b;
+$background-start-color: #1b004b;
+$background-end-color: #370073;
+$text-color: #ffffff;
+$highlight-color: #d633ff;
+$button-color: #a300ff;
+$button-hover-color: #8000cc;
+$card-background-color: #2d0f61;
+$orange-color: #ff6700;
+$modal-background: rgba(0, 0, 0, 0.8);
+
+.cookie-dangers {
+  background: linear-gradient(135deg, $background-start-color, $background-end-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $text-color;
+
+  .content {
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;
+
+    h1, h4 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+    }
+
+    .cookie_button {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+
+    .styled-button {
+      background-color: $button-color;
+      border: none;
+      border-radius: 25px;
+      color: $text-color;
+      font-size: 1rem;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: $button-hover-color;
+      }
+    }
+
+    .orange-button {
+      background-color: $orange-color;
+      color: $text-color;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: darken($orange-color, 10%);
+      }
+
+      &:disabled {
+        background-color: lighten($orange-color, 20%);
+        cursor: not-allowed;
+      }
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+
+      .styled-input {
+        flex: 1;
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 25px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+
+        &:focus {
+          border-color: $highlight-color;
+          box-shadow: 0 0 5px $highlight-color;
+          outline: none;
+        }
+      }
+    }
+
+    .simulation {
+      margin-top: 50px;
+    }
+  }
+
+  .cookie-jar,
+  .cookie-summary {
+    background-color: $card-background-color;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    max-width: 800px;
+    width: 100%;
+
+    .card-content {
+      h5 {
+        margin-bottom: 20px;
+      }
+    }
+
+    .cookie-list {
+      list-style: none;
+      padding: 0;
+
+      li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+
+        .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          background-color: $highlight-color;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+
+        .text {
+          flex: 1;
+
+          p {
+            margin: 0;
+          }
+        }
+
+        .danger-level {
+          color: $highlight-color;
+        }
+      }
+    }
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $modal-background;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal-box {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      color: #000;
+    }
+
+    .close-button {
+      margin-top: 20px;
+      background-color: $button-color;
+      color: $text-color;
+
+      &:hover {
+        background-color: $button-hover-color;
+      }
+    }
+  }
+
+  .link-button {
+    background: none;
+    border: none;
+    color: $highlight-color;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+
+    &:hover {
+      color: lighten($highlight-color, 10%);
+    }
+  }
+
+  .loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid $highlight-color;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .error {
+    color: red;
+    font-size: 1rem;
+  }
+}
