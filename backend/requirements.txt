@@ -10,6 +10,6 @@ psycopg2-binary
 requests
 beautifulsoup4
 selenium
-ChromeDriverManager
+webdriver-manager
 mlflow
 setuptools

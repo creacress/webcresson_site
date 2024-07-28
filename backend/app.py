@@ -102,9 +102,7 @@ def create_app():
             opt.add_argument('--disable-extensions')
             opt.add_argument('--start-maximized')
 
-        clear_wdm_cache()
-
-        if browser == 'chrome' or browser == 'duckduckgo':
+        if browser == 'chrome':
             chrome_driver_path = ChromeDriverManager().install()
             service = ChromeService(executable_path=chrome_driver_path)
             driver = webdriver.Chrome(service=service, options=options['chrome'])
