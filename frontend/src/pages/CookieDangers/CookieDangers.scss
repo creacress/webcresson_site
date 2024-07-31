@@ -1,16 +1,18 @@
-$background-color: #1b004b;
 $background-start-color: #1b004b;
 $background-end-color: #370073;
-$text-color: #ffffff;
-$highlight-color: #d633ff;
-$button-color: #a300ff;
-$button-hover-color: #8000cc;
-$card-background-color: #2d0f61;
-$orange-color: #ff6700;
+$background-color: #0d0d0d;
+$accent-color: #e60000;
+$text-color: #e0e0e0;
+$highlight-color: #9A926E;
+$button-color: #9A926E;
+$button-hover-color: #9a926ec5;
+$card-background-color: #1a1a1a;
 $modal-background: rgba(0, 0, 0, 0.8);
+$orange-color: #ff6700;
+
 
 .cookie-dangers {
-  background: linear-gradient(135deg, $background-start-color, $background-end-color);
+  background: #00123d;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,6 +25,7 @@ $modal-background: rgba(0, 0, 0, 0.8);
     margin: 0 auto;
 
     h1, h4 {
+      color: #9A926E;
       font-size: 2rem;
       margin-bottom: 20px;
     }
@@ -74,6 +77,7 @@ $modal-background: rgba(0, 0, 0, 0.8);
 
     .input-group {
       display: flex;
+      flex-direction: column;
       gap: 10px;
 
       .styled-input {
@@ -88,6 +92,9 @@ $modal-background: rgba(0, 0, 0, 0.8);
           box-shadow: 0 0 5px $highlight-color;
           outline: none;
         }
+      }
+      button {
+        width: 40%;
       }
     }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './CookieDangers.scss';
@@ -19,19 +20,9 @@ const CookieDangers = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('http://localhost:5000/api/start-instance', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ url }),
-      });
+      const response = await axios.post('https://api.webcresson.com/api/start-instance', { url });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const result = await response.json();
+      const result = response.data;
       setInstanceId(result.instanceId);
       toast.success('Instance started. Navigate the website and click "Terminer" when done.', {
         position: "top-center",
@@ -65,19 +56,9 @@ const CookieDangers = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('http://localhost:5000/api/extract-cookies', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ instanceId }),
-      });
+      const response = await axios.post('https://api.webcresson.com/api/extract-cookies', { instanceId });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const result = await response.json();
+      const result = response.data;
 
       if (result.status === 'success') {
         const sortedCookies = result.cookies.sort((a, b) => {
@@ -123,7 +104,6 @@ const CookieDangers = () => {
     <div className="cookie-dangers">
       <ToastContainer />
       <div className="content">
-        
         <h1>Définition de cookie</h1>
         <p>
           Un cookie est un fichier texte déposé sur votre ordinateur lors de la visite d'un site. Il permet de conserver des données utilisateur afin de faciliter la navigation et de permettre certaines fonctionnalités. Source : <a href="https://www.cnil.fr/fr/definition/cookie" target="_blank" rel="noopener noreferrer">CNIL</a>
@@ -158,7 +138,7 @@ const CookieDangers = () => {
         </ul>
         <h5>Simulation : Suivi des Cookies</h5>
         <div className="simulation">
-        <button className="link-button" onClick={handleOpen}>Explication du fonctionnement de la simulation</button>
+          <button className="link-button" onClick={handleOpen}>Explication du fonctionnement de la simulation</button>
           <form onSubmit={handleUrlSubmit}>
             <div className="input-group">
               <input
@@ -176,13 +156,13 @@ const CookieDangers = () => {
             <button onClick={extractCookies} disabled={loading} className="styled-button">
               Terminer
             </button>
-            <button className="styled-button download-button">Télécharger</button>
           </div>
           {loading && <div className="loader"></div>}
           {error && <p className="error">{error}</p>}
           <p>
             Après avoir visité ces sites, des annonceurs peuvent utiliser ces cookies pour vous suivre et cibler des publicités spécifiques en fonction de vos habitudes de navigation.
           </p>
+          <button className="styled-button download-button">Télécharger</button>
         </div>
       </div>
       <div className="cookie-jar">
