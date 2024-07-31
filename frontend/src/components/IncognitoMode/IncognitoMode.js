@@ -9,10 +9,12 @@ const HiddenFeature = () => {
   const { setIncognito } = useContext(IncognitoContext);
   const [activateMatrix, setActivateMatrix] = useState(false);
   const [showSecretDiv, setShowSecretDiv] = useState(false);
-  const secretKey = 'DGSE';
+  const secretKey = process.env.REACT_APP_SECRET_KEY; // Lire la clé secrète à partir des variables d'environnement
   const inputSequenceRef = useRef('');
   const secretDivRef = useRef(null);
   const navigate = useNavigate();
+
+  console.log('Secret Key:', secretKey); // Vérifiez que la clé secrète est correctement lue
 
   useEffect(() => {
     if (activateMatrix) {
@@ -29,7 +31,7 @@ const HiddenFeature = () => {
       inputSequenceRef.current += e.key;
       if (inputSequenceRef.current.includes(secretKey)) {
         setShowSecretDiv(true);
-        inputSequenceRef.current = ''; // Reset sequence after successful match
+        inputSequenceRef.current = ''; // Réinitialiser la séquence après une correspondance réussie
       }
     };
 
@@ -49,9 +51,19 @@ const HiddenFeature = () => {
   const handleConfirmation = () => {
     setShowSecretDiv(false); // Masquer la div après la confirmation
     setActivateMatrix(true);
-    setTimeout(() => {
-      navigate('/intelligence-section'); // Rediriger vers la section Intelligence après l'animation
-    }, 3000); // Délai correspondant à la durée de l'animation Matrix
+
+    fetch('/grant-access', { method: 'POST' })
+      .then(response => {
+        if (response.ok) {
+          setTimeout(() => {
+            navigate('/intelligence-section'); // Rediriger vers la section Intelligence après l'animation
+          }, 3000); // Délai correspondant à la durée de l'animation Matrix
+        } else {
+          setTimeout(() => {
+            navigate('/'); // Rediriger vers la page d'accueil en cas d'accès refusé
+          }, 3000); // Délai correspondant à la durée de l'animation Matrix
+        }
+      });
   };
 
   return (

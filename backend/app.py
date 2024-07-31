@@ -1,11 +1,20 @@
-import logging
-import subprocess
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_cors import CORS
 import os
+import json
+import mlflow
+import shutil
+import logging
+import warnings
+import requests
+import subprocess
+import numpy as np
+import pandas as pd
+import mlflow.pyfunc
+from flask_cors import CORS
+from flask_migrate import Migrate
 from dotenv import load_dotenv
+from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, request, jsonify, session, redirect, url_for, render_template
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
@@ -16,15 +25,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
-import requests
-import warnings
 from urllib3.exceptions import InsecureRequestWarning
-import mlflow
-import mlflow.pyfunc
-import pandas as pd
-import numpy as np
-import json
-import shutil
 
 warnings.simplefilter('ignore', InsecureRequestWarning)
 
@@ -63,6 +64,18 @@ def create_app():
     @app.route('/')
     def home():
         return jsonify({"message": "Welcome to WebCressonTech API!"}), 200
+
+    @app.route('/grant-access', methods=['POST'])
+    def grant_access():
+        session['access_granted'] = True
+        return jsonify({"status": "success"}), 200
+
+    @app.route('/secret')
+    def secret():
+        if session.get('access_granted'):
+            return jsonify({"message": "Welcome to the secret page!"}), 200
+        else:
+            return render_template('403.html'), 403
 
     def detect_browser(user_agent):
         if 'chrome' in user_agent.lower():
