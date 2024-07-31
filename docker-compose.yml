@@ -39,9 +39,11 @@ services:
   mlflow:
     image: bitnami/mlflow:latest
     ports:
-      - "5001:5002"
+      - "5000:5002"  # Change the external port to 5002
     environment:
-      - MLFLOW_TRACKING_URI=http://mlflow:5002
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - MLFLOW_BACKEND_STORE_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - MLFLOW_DEFAULT_ARTIFACT_ROOT=/mlflow/artifacts
     volumes:
       - mlflow_data:/mlflow
     depends_on:
