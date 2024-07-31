@@ -36,12 +36,11 @@ logging.basicConfig(level=logging.INFO)
 
 db = SQLAlchemy()
 instances = {}
-
 def create_app():
     app = Flask(__name__)
     
-    # Configurer CORS pour accepter toutes les origines
-    CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+    # Configurer CORS pour accepter les requêtes depuis webcresson.com
+    CORS(app, resources={r"/*": {"origins": "https://webcresson.com"}}, supports_credentials=True)
 
     # Configurer la base de données
     database_uri = os.getenv('DATABASE_URI')
