@@ -14,8 +14,6 @@ const HiddenFeature = () => {
   const secretDivRef = useRef(null);
   const navigate = useNavigate();
 
-  console.log('Secret Key:', secretKey); // Vérifiez que la clé secrète est correctement lue
-
   useEffect(() => {
     if (activateMatrix) {
       const timer = setTimeout(() => {
