@@ -9,8 +9,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-      - ./frontend/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt
+      - ./frontend/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - backend
 
@@ -24,7 +24,6 @@ services:
       - .env
     depends_on:
       - db
-      - mlflow
 
   db:
     image: postgres:latest
@@ -38,18 +37,16 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   mlflow:
-    image: mlflow/mlflow
+    image: mlflow/mlflow:1.30.0
+    ports:
+      - "5001:5000"
     environment:
       - MLFLOW_TRACKING_URI=http://mlflow:5002
-      - BACKEND_STORE_URI=${DATABASE_URI}
-      - ARTIFACT_ROOT=/mlflow/artifacts
-    ports:
-      - "5000:5002"
     volumes:
-      - mlflow:/mlflow
+      - mlflow_data:/mlflow
     depends_on:
       - db
 
 volumes:
   postgres_data:
-  mlflow:
+  mlflow_data:
