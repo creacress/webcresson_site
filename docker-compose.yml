@@ -44,7 +44,7 @@ services:
       - BACKEND_STORE_URI=${DATABASE_URI}
       - ARTIFACT_ROOT=/mlflow/artifacts
     ports:
-      - "5000:5000"
+      - "5000:5002"
     volumes:
       - mlflow:/mlflow
     depends_on:
