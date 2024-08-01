@@ -50,7 +50,7 @@ const HiddenFeature = () => {
     setShowSecretDiv(false); // Masquer la div après la confirmation
     setActivateMatrix(true);
 
-    fetch('http://localhost:5000/grant-access', { method: 'POST', credentials: 'include' })
+    fetch('https://webcresson/grant-access', { method: 'POST', credentials: 'include' })
       .then(response => {
         if (response.ok) {
           setTimeout(() => {

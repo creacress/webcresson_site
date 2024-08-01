@@ -25,10 +25,13 @@ jobs:
         echo "RECEIVER_EMAIL=${{ secrets.RECEIVER_EMAIL }}" >> .env
         echo "DATABASE_URI=postgresql+psycopg2://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@db:5432/${{ secrets.POSTGRES_DB }}" >> .env
 
-    - name: Set up .env file for frontend
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v1
+
+    - name: Install Docker Compose
       run: |
-        mkdir -p frontend
-        echo "REACT_APP_SECRET_KEY=${{ secrets.REACT_APP_SECRET_KEY }}" > frontend/.env
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
 
     - name: Build Docker images
       run: docker-compose build
@@ -69,8 +72,6 @@ jobs:
         echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> .env
         echo "RECEIVER_EMAIL=${{ secrets.RECEIVER_EMAIL }}" >> .env
         echo "DATABASE_URI=postgresql+psycopg2://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@db:5432/${{ secrets.POSTGRES_DB }}" >> .env
-        mkdir -p frontend
-        echo "REACT_APP_SECRET_KEY=${{ secrets.REACT_APP_SECRET_KEY }}" > frontend/.env
         docker-compose down
         docker-compose up -d
         sleep 10  # Attendre quelques secondes pour que les conteneurs démarrent

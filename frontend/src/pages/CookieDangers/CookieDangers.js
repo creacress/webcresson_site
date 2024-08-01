@@ -20,7 +20,7 @@ const CookieDangers = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('http://localhost:5000/api/start-instance', { url });
+      const response = await axios.post('https://api.webcresson/api/start-instance', { url });
 
       const result = response.data;
       setInstanceId(result.instanceId);
