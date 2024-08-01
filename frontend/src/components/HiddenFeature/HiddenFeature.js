@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MatrixAnimation.scss';
-import './IncognitoMode.scss';
+import './HiddenFeature.scss';
 import MatrixCanvas from './MatrixCanvas';
-import { IncognitoContext } from '../../App';
+import { AuthContext } from '../../context/AuthContext';
 
 const HiddenFeature = () => {
-  const { setIncognito } = useContext(IncognitoContext);
+  const { login } = useContext(AuthContext);
   const [activateMatrix, setActivateMatrix] = useState(false);
   const [showSecretDiv, setShowSecretDiv] = useState(false);
-  const secretKey = process.env.REACT_APP_SECRET_KEY; // Lire la clé secrète à partir des variables d'environnement
+  const secretKey = process.env.REACT_APP_SECRET_KEY;
   const inputSequenceRef = useRef('');
   const secretDivRef = useRef(null);
   const navigate = useNavigate();
@@ -18,11 +18,11 @@ const HiddenFeature = () => {
     if (activateMatrix) {
       const timer = setTimeout(() => {
         setActivateMatrix(false);
-        setIncognito(true);
+        login(); // Définir l'utilisateur comme authentifié
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [activateMatrix, setIncognito]);
+  }, [activateMatrix, login]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -50,7 +50,7 @@ const HiddenFeature = () => {
     setShowSecretDiv(false); // Masquer la div après la confirmation
     setActivateMatrix(true);
 
-    fetch('/grant-access', { method: 'POST' })
+    fetch('http://localhost:5000/grant-access', { method: 'POST', credentials: 'include' })
       .then(response => {
         if (response.ok) {
           setTimeout(() => {
@@ -61,6 +61,9 @@ const HiddenFeature = () => {
             navigate('/'); // Rediriger vers la page d'accueil en cas d'accès refusé
           }, 3000); // Délai correspondant à la durée de l'animation Matrix
         }
+      })
+      .catch(error => {
+        console.error('Error:', error);
       });
   };
 

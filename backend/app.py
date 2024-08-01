@@ -40,9 +40,8 @@ instances = {}
 def create_app():
     app = Flask(__name__)
     
-    # Configurer CORS pour accepter les requêtes depuis webcresson.com
+        # Configurer CORS pour accepter les requêtes depuis webcresson.com
     CORS(app, resources={r"/*": {"origins": "https://webcresson.com"}}, supports_credentials=True)
-
     # Configurer la base de données
     database_uri = os.getenv('DATABASE_URI')
     if not database_uri:
@@ -70,10 +69,17 @@ def create_app():
         session['access_granted'] = True
         return jsonify({"status": "success"}), 200
 
-    @app.route('/secret')
-    def secret():
+    @app.route('/api/check-access')
+    def check_access():
         if session.get('access_granted'):
-            return jsonify({"message": "Welcome to the secret page!"}), 200
+            return jsonify({"access": True}), 200
+        else:
+            return jsonify({"access": False}), 403
+
+    @app.route('/intelligence-section')
+    def intelligence_section():
+        if session.get('access_granted'):
+            return render_template('index.html')  # Render your React app
         else:
             return render_template('403.html'), 403
 

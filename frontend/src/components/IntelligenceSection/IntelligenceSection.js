@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './IntelligenceSection.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 const IntelligenceSection = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [isNightMode, setIsNightMode] = useState(false);
   const [language, setLanguage] = useState('en');
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/'); // Rediriger vers la page d'accueil si non authentifié
+    }
+  }, [isAuthenticated, navigate]);
 
   const toggleNightMode = () => {
     setIsNightMode(!isNightMode);
@@ -13,6 +22,10 @@ const IntelligenceSection = () => {
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'fr' : 'en');
   };
+
+  if (!isAuthenticated) {
+    return null; // Ne rien rendre si non authentifié
+  }
 
   return (
     <div className={`intelligence-section ${isNightMode ? 'night-mode' : ''}`}>
@@ -46,6 +59,7 @@ const IntelligenceSection = () => {
           {language === 'en' ? 'Read Full Report' : 'Lire le rapport complet'}
         </a>
       </div>
+
       <div className="report">
         <h3>{language === 'en' ? 'How to Protect Your Privacy' : 'Comment protéger votre vie privée'}</h3>
         <p>
@@ -57,6 +71,7 @@ const IntelligenceSection = () => {
           {language === 'en' ? 'Read Full Report' : 'Lire le rapport complet'}
         </a>
       </div>
+
       <div className="report">
         <h3>{language === 'en' ? 'Case Studies on Cookie Misuse' : 'Études de cas sur l\'abus de cookies'}</h3>
         <p>
