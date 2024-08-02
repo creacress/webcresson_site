@@ -33,8 +33,8 @@ const Home = () => (
       <meta name="twitter:image" content="https://www.canva.com/design/DAFN5s5-hjk/view" />
     </Helmet>
     <div className="hero">
-      <h1>Bienvenue chez WebCressonTech</h1>
-      <p>Je propose des services de consultation de premier ordre pour automatiser et rationaliser vos processus métier grâce à des solutions RPA et d'ingénierie des données.</p>
+      <h1>Bienvenue dans mon univers</h1>
+      <p>Ce site web me permet de vous présentez mes compétences et d'interagir avec vous.</p>
     </div>
     <Services />
     <div className="cta">

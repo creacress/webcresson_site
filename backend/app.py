@@ -60,6 +60,8 @@ def create_app():
         service = db.Column(db.String(120), nullable=False)
         message = db.Column(db.Text, nullable=False)
 
+    app.secret_key = os.getenv('SECRET_KEY')
+
     @app.route('/')
     def home():
         return jsonify({"message": "Welcome to WebCressonTech API!"}), 200
