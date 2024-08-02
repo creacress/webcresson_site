@@ -1,20 +1,19 @@
 import os
 import json
-import mlflow
-import shutil
 import logging
 import warnings
 import requests
 import subprocess
 import numpy as np
 import pandas as pd
+import mlflow
 import mlflow.pyfunc
+import shutil
+from flask import Flask, request, jsonify, session, redirect, url_for, render_template
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from dotenv import load_dotenv
-from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, request, jsonify, session, redirect, url_for, render_template
-
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
@@ -37,11 +36,13 @@ logging.basicConfig(level=logging.INFO)
 
 db = SQLAlchemy()
 instances = {}
+
 def create_app():
-    app = Flask(__name__)
-    
-        # Configurer CORS pour accepter les requêtes depuis webcresson.com
+    app = Flask(__name__, template_folder='backend/templates')
+
+    # Configurer CORS pour accepter les requêtes depuis webcresson.com
     CORS(app, resources={r"/*": {"origins": "https://webcresson.com"}}, supports_credentials=True)
+
     # Configurer la base de données
     database_uri = os.getenv('DATABASE_URI')
     if not database_uri:
@@ -59,8 +60,6 @@ def create_app():
         email = db.Column(db.String(120), nullable=False)
         service = db.Column(db.String(120), nullable=False)
         message = db.Column(db.Text, nullable=False)
-
-    app = Flask(__name__, template_folder='backend/templates')
 
     # Configurer la clé secrète à partir des variables d'environnement
     app.secret_key = os.getenv('SECRET_KEY')
