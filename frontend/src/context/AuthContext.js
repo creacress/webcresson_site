@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    fetch('https://lwebcresson/api/check-access', { credentials: 'include' })
+    fetch('https://webcresson/api/check-access', { credentials: 'include' })
       .then(response => {
         if (response.ok) {
           return response.json();
