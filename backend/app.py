@@ -60,6 +60,7 @@ def create_app():
         service = db.Column(db.String(120), nullable=False)
         message = db.Column(db.Text, nullable=False)
 
+    # Configurer la clé secrète à partir des variables d'environnement
     app.secret_key = os.getenv('SECRET_KEY')
 
     @app.route('/')

@@ -83,7 +83,7 @@ function App() {
               <Route path="/site-renovation" element={<SiteRenovation />} />
               <Route path="/hosting" element={<Hosting />} />
               <Route path="/cookie-dangers" element={<ProtectedRoute element={<CookieDangers />} />} />
-              <Route path="/intelligence-section" element={<ProtectedRoute element={<IntelligenceSection />} />} />
+              <Route path="/intelligence-section" element={<ProtectedRoute element={<IntelligenceSection />} />} /> 
             </Routes>
             <HiddenFeature />
           </main>

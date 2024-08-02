@@ -7,23 +7,19 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     fetch('https://webcresson/api/check-access', { credentials: 'include' })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Failed to check access');
-        }
-      })
+      .then(response => response.json())
       .then(data => {
         if (data.access) {
           setIsAuthenticated(true);
           sessionStorage.setItem('isAuthenticated', 'true');
         } else {
+          setIsAuthenticated(false);
           sessionStorage.removeItem('isAuthenticated');
         }
       })
       .catch(error => {
         console.error('Error:', error);
+        setIsAuthenticated(false);
         sessionStorage.removeItem('isAuthenticated');
       });
   }, []);
