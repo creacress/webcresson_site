@@ -86,7 +86,7 @@ def create_app():
         if session.get('access_granted'):
             return render_template('index.html')  # Render your React app
         else:
-            return render_template('403/403.html'), 403  # Render your custom 403 template
+            return render_template('403.html'), 403  # Render your custom 403 template
 
     def detect_browser(user_agent):
         if 'chrome' in user_agent.lower():
