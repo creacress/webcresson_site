@@ -76,8 +76,7 @@ jobs:
         echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> .env
         echo "RECEIVER_EMAIL=${{ secrets.RECEIVER_EMAIL }}" >> .env
         echo "DATABASE_URI=postgresql+psycopg2://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@db:5432/${{ secrets.POSTGRES_DB }}" >> .env
-        cd /root/CRESSON/frontend
-        echo "REACT_APP_SECRET_KEY=${{ secrets.SECRET_KEY }}" > .env
+        echo "REACT_APP_SECRET_KEY=${{ secrets.SECRET_KEY }}" > frontend/.env
         docker-compose down
         docker-compose up -d
         sleep 10  # Attendre quelques secondes pour que les conteneurs démarrent
