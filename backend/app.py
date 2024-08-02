@@ -60,6 +60,8 @@ def create_app():
         service = db.Column(db.String(120), nullable=False)
         message = db.Column(db.Text, nullable=False)
 
+    app = Flask(__name__, template_folder='backend/templates')
+
     # Configurer la clé secrète à partir des variables d'environnement
     app.secret_key = os.getenv('SECRET_KEY')
 
@@ -84,7 +86,7 @@ def create_app():
         if session.get('access_granted'):
             return render_template('index.html')  # Render your React app
         else:
-            return render_template('403.html'), 403
+            return render_template('403/403.html'), 403  # Render your custom 403 template
 
     def detect_browser(user_agent):
         if 'chrome' in user_agent.lower():
