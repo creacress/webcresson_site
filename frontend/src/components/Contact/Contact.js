@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import './Contact.scss';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const services = [
   { value: 'rpa', label: 'RPA' },
@@ -34,7 +36,7 @@ const Contact = () => {
     setIsSubmitting(true);
     try {
         console.log('Sending data:', formData);
-        const response = await fetch('https://webcresson.com/api/contact', { // Modifiez cette URL pour pointer vers l'API
+        const response = await fetch('http://5000/api/contact', { // Modifiez cette URL pour pointer vers l'API
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -47,7 +49,7 @@ const Contact = () => {
         }
 
         const result = await response.json();
-        alert(result.message);
+        toast.success(result.message);
         setIsSubmitted(true);
         setFormData({
             name: '',
@@ -57,12 +59,11 @@ const Contact = () => {
         });
     } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred. Please try again later.');
+        toast.error('An error occurred. Please try again later.');
     } finally {
         setIsSubmitting(false);
     }
-};
-
+  };
 
   return (
     <section className="contact">
@@ -119,6 +120,8 @@ const Contact = () => {
           <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Message'}</button>
         </form>
       )}
+
+      <ToastContainer />
     </section>
   );
 };

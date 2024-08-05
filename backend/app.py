@@ -79,6 +79,23 @@ def create_app():
             return jsonify({"access": True}), 200
         else:
             return jsonify({"access": False}), 403
+    
+    @app.route('/api/contact', methods=['POST'])
+    def contact():
+        data = request.get_json()
+        
+        name = data.get('name')
+        email = data.get('email')
+        service = data.get('service')
+        message = data.get('message')
+        
+        if not all([name, email, service, message]):
+            return jsonify({'message': 'All fields are required!'}), 400
+        
+        # Simuler un traitement, comme l'envoi d'un email ou la sauvegarde dans une base de données.
+        print(f"Received contact form submission: {data}")
+        
+        return jsonify({'message': 'Your message has been received!'}), 200
 
     @app.route('/intelligence-section')
     def intelligence_section():
